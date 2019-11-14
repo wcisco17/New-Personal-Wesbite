@@ -38,9 +38,9 @@
 </p>
 
 <p align="center">
-  <strong>
+<!--   <strong>
     Available at www.sissoko.club
-  </strong>
+  </strong> -->
 </p>
 
 ---
