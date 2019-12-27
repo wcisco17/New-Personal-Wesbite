@@ -6,7 +6,7 @@ import GlobalLayout from '../components/common/GlobalLayout';
 import FeaturedProject from '../components/Projects';
 import theme from '../config';
 import { SideProjectContainer } from '../modules/Home/FeaturedProjects';
-import { DesignProject } from '../types/design';
+import { DesignProjectsRoot } from '../types/design';
 
 const ProjectsContainer = styled.section`
     position: absolute;
@@ -27,8 +27,8 @@ const ProjectsContainer = styled.section`
     }
 `;
 
-const Projects: React.FC<DesignProject> = ({ data: { prismic: { allHomepagess: { edges } } } }) => {
-  // console.log("Props", prismic.allHomepagess.edges);
+const Projects: React.FC<DesignProjectsRoot> = (props) => {
+  const { node } = props.data.prismic.allHomepagess.edges[0];
   return (
     <GlobalLayout path={location}>
       <ProjectsContainer>
@@ -36,7 +36,7 @@ const Projects: React.FC<DesignProject> = ({ data: { prismic: { allHomepagess: {
         <div className="container-projects">
           <SideProjectContainer>
             {
-              edges[0].node.designprojects.map(({
+              node.designprojects.map(({
                 title,
                 image,
                 link,
@@ -44,6 +44,7 @@ const Projects: React.FC<DesignProject> = ({ data: { prismic: { allHomepagess: {
               }, id) => {
                 return (
                   <FeaturedProject
+                    url={link.url}
                     big={true}
                     key={id}
                     title={title[0].text}
@@ -72,7 +73,7 @@ export const designProjectQuery = graphql`
           designprojects {
             image
             link {
-              ... on PRISMIC__FileLink {
+              ... on PRISMIC__ExternalLink {
                 _linkType
                 url
               }
