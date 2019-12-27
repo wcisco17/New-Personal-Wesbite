@@ -19,6 +19,13 @@ const HomeContainer = styled.section`
     margin: 0 5.3rem;
     .home-container {
         display: flex;
+        .home-container__text {
+            line-height: 2;
+            .home-paragraph {
+                max-width: 750px;
+            }
+        }
+        
         .home-container__image {
             border-radius: 20px;
             width: auto;
@@ -79,16 +86,15 @@ const RootApp: React.FC<HomePageProps> = ({ data, location }) => {
     const doc = edges.slice(0, 1).pop();
     if (!doc) return null;
 
-    function onClick() {
-        window.location.href = `mailto:wsissoko65@gmail.com`;
+    function onClick(): string {
+        return window.location.href = `mailto:wsissoko65@gmail.com`;
     }
 
     return (
         <GlobalLayout path={location} >
             <HomeContainer>
                 <div className="home-container">
-                    <div className="">
-
+                    <div className="home-container__text">
                         <h1>{(edges as any)[0].node.firsttitle[0].text},</h1>
                         <p className="home-paragraph">
                             {(edges as any)[0].node.text[0].text}

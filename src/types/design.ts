@@ -11,13 +11,8 @@ export interface Image {
 }
 
 export interface Link {
+  _linkType: string
   url: string
-}
-
-export interface Subtitle {
-  type: string
-  text: string
-  spans: any[]
 }
 
 export interface Title {
@@ -26,14 +21,20 @@ export interface Title {
   spans: any[]
 }
 
+export interface Subtitle {
+  type: string
+  text: string
+  spans: any[]
+}
+
 export interface Designproject {
   image: Image
   link: Link
-  subtitle: Subtitle[]
   title: Title[]
+  subtitle: Subtitle[]
 }
 
-export interface DesignNode {
+export interface Node {
   designprojects: Designproject[]
 }
 
@@ -53,6 +54,6 @@ export interface Data {
   prismic: Prismic
 }
 
-export interface DesignProject {
+export interface DesignProjectsRoot {
   data: Data
 }
