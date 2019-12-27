@@ -22,6 +22,7 @@ const ImageOverlay = styled.div`
 `
 
 const Wrapper = styled(animated.article)`
+cursor: pointer;
   position: relative;
   z-index: 100;
   border-radius: ${theme.other.borderRadius.default};
@@ -155,8 +156,9 @@ interface ProjectsProps {
   image: string | FluidObject['src'];
   title: string;
   subTitle: string;
-  link: string;
+  link: string | any;
   isDisplay?: boolean;
+  url: string;
 }
 
 const FeaturedProject = ({
@@ -165,7 +167,8 @@ const FeaturedProject = ({
   title,
   subTitle,
   link,
-  isDisplay
+  isDisplay,
+  url,
 }: ProjectsProps) => {
   const fp = useSpring({
     delay: 100 * 1,
@@ -173,14 +176,14 @@ const FeaturedProject = ({
     to: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
   })
   return (
-    <Wrapper isDisplay={isDisplay} big={big} data-testid={1} style={fp}>
+    <Wrapper onClick={() => window.open(url)} isDisplay={isDisplay} big={big} data-testid={1} style={fp}>
       <Image>
         <Img
           fluid={{
             src: `${image}`
           } as any} />
       </Image>
-      <StyledLink href={link} >
+      <StyledLink>
         <Customer>{subTitle}</Customer>
         <Title>{title}</Title>
       </StyledLink>

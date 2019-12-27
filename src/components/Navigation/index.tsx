@@ -68,13 +68,13 @@ const Routes = [
   },
   {
     id: 1,
-    title: 'About Me',
-    path: '/about'
+    title: 'Coding',
+    path: '/projects'
   },
   {
     id: 2,
-    title: 'Blog',
-    path: '/blog'
+    title: 'Design',
+    path: '/design'
   },
 ]
 
@@ -82,16 +82,11 @@ const Navigation: React.FC<{ path: any }> = ({ path }) => {
   const [pathName, setPath] = React.useState<string>('');
 
   let p = path.pathname;
-  let globalTitle: string = document.title = `Sissoko | ${pathName}`;
 
   const changePath = () => Routes.map(({ title, path }) => p === path ? setPath(title) : setPath(title))
 
   useEffect(() => {
     changePath();
-  }, [globalTitle]);
-
-  useEffect(() => {
-    globalTitle
   }, []);
 
   return (

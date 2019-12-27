@@ -61,8 +61,9 @@ const FeaturedProjetcs: React.FC<IProps> = ({ thirdtitle, featuredprojects, isDi
                         if (isDisplay) {
                             if (id >= 3) return;
                             return (
-                                <Fragment>
+                                <Fragment key={id} >
                                     <FeaturedProject
+                                        url={link.url}
                                         key={id}
                                         big
                                         image={url}
@@ -74,8 +75,9 @@ const FeaturedProjetcs: React.FC<IProps> = ({ thirdtitle, featuredprojects, isDi
                             )
                         } else {
                             return (
-                                <Fragment>
+                                <Fragment key={id} >
                                     <FeaturedProject
+                                        url={link.url}
                                         key={id}
                                         isDisplay={true}
                                         big

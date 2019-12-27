@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Fragment } from 'react';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 
 import theme from '../../../config';
@@ -17,13 +18,18 @@ export const Footer = styled.footer`
 
 const GlobalLayout: React.FC<{ path: any }> = ({ children, path }) => {
     return (
-        <ThemeProvider theme={theme} >
-            <Fragment>
-                <GlobalStyled />
-                <Navigation path={path} />
-                {children}
-            </Fragment>
-        </ThemeProvider>
+        <Fragment>
+            <Helmet>
+                <title>Portfolio | Sissoko</title>
+            </Helmet>
+            <ThemeProvider theme={theme} >
+                <Fragment>
+                    <GlobalStyled />
+                    <Navigation path={path} />
+                    {children}
+                </Fragment>
+            </ThemeProvider>
+        </Fragment>
     )
 }
 
