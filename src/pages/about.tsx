@@ -19,7 +19,7 @@ const AboutPage: React.FC = (props: any) => {
     return (
         <GlobalLayout path={props.location} >
             <AboutContainer>
-                <h1 className='blog-title' >About Me</h1>
+                <h1 className='blog-title'>About Me</h1>
             </AboutContainer>
         </GlobalLayout>
     )

@@ -2,20 +2,25 @@ import * as React from 'react';
 import { Fragment } from 'react';
 
 import FeaturedProject from '../../components/Projects';
-import { PurpleFields } from '../../types/homepageTypes';
+import { Designproject } from '../../types/design';
 import { SeeAll, SideProjectContainer } from './FeaturedProjects';
 
 interface IProps {
     fourthtitle: string;
-    designprojects: PurpleFields[];
+    designprojects: Designproject[];
+    isEmpty?: boolean;
 };
 
-const DesignProjects: React.FC<IProps> = ({ fourthtitle, designprojects }) => {
+const DesignProjects: React.FC<IProps> = ({ fourthtitle, designprojects, isEmpty }) => {
     return (
         <Fragment>
-            <div className="top-header">
-                <h1 className='skills-title'>{fourthtitle}</h1>
-            </div>
+            {
+                isEmpty ? null : (
+                    <div className="top-header">
+                        <h1 className='skills-title'>{fourthtitle}</h1>
+                    </div>
+                )
+            }
             <SideProjectContainer>
                 {
                     designprojects.map(({
@@ -27,18 +32,19 @@ const DesignProjects: React.FC<IProps> = ({ fourthtitle, designprojects }) => {
                         if (id >= 3) return;
                         return (
                             <FeaturedProject
+                                url={link.url}
                                 big={false}
                                 key={id}
                                 title={title[0].text}
                                 image={image.url}
-                                link={link.url}
+                                link={'link'}
                                 subTitle={subtitle[0].text}
                             />
                         )
                     })
                 }
                 <div className="align-center">
-                    <SeeAll to={'/'} big>See More</SeeAll>
+                    <SeeAll to={'/design'} big>See More</SeeAll>
                 </div>
             </SideProjectContainer>
         </Fragment>
