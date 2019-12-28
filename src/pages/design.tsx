@@ -27,10 +27,11 @@ const ProjectsContainer = styled.section`
     }
 `;
 
-const Projects: React.FC<DesignProjectsRoot> = (props) => {
+const Projects: React.FunctionComponent<DesignProjectsRoot> = (props) => {
   const { node } = props.data.prismic.allHomepagess.edges[0];
+
   return (
-    <GlobalLayout path={location}>
+    <GlobalLayout path={(props as any).location}>
       <ProjectsContainer>
         <h1 className='blog-title'>Design Projects</h1>
         <div className="container-projects">

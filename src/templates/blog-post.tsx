@@ -1,10 +1,8 @@
-import { graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import Back from '../components/common/Back';
 import theme from '../config';
-import { BlogPostNode } from '../types/homepageTypes';
 
 const BlogsContainer = styled.section`
 .content {
@@ -100,16 +98,13 @@ export const Wrapper = styled.section`
 `
 
 const BlogPost: React.FC = (props: any) => {
-  const blog: Array<BlogPostNode> = props.data.prismic.allBlogposts.edges;
-
-  useEffect(() => {
-    document.title = `${blog[0].node.title[0].text}`;
-  }, [])
+  // const blog: Array<BlogPostNode> = props.data.prismic.allBlogposts.edges;
   return (
     <BlogsContainer>
-      <Background itemProp={blog[0].node.image.url}>
+      <Background itemProp={'blog[0].node.image.url'}>
         <Dark>
-
+          <h2>Blog</h2>
+          {/* 
           <div className="content">
             <div className="back">
 
@@ -147,7 +142,7 @@ const BlogPost: React.FC = (props: any) => {
               })
 
             }
-          </Wrapper>
+          </Wrapper> */}
         </Dark>
       </Background>
     </BlogsContainer>
@@ -156,20 +151,20 @@ const BlogPost: React.FC = (props: any) => {
 
 export default BlogPost;
 
-export const blogPostFilter = graphql`
-query BLOG_FILTER($keytext:String!) {
-  prismic {
-    allBlogposts(where: {keytext: $keytext}) {
-      edges {
-        node {
-          date
-          image
-          pill
-          text
-          title
-        }
-      }
-    }
-  }
-}
-`;
+// export const blogPostFilter = graphql`
+// query BLOG_FILTER($keytext:String!) {
+//   prismic {
+//     allBlogposts(where: {keytext: $keytext}) {
+//       edges {
+//         node {
+//           date
+//           image
+//           pill
+//           text
+//           title
+//         }
+//       }
+//     }
+//   }
+// }
+// `;

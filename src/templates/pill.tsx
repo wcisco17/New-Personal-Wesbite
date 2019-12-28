@@ -1,12 +1,9 @@
-import { graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 
-import ItemBlog, { isColorCode } from '../components/BlogItem';
-import Back from '../components/common/Back';
 import GlobalLayout from '../components/common/GlobalLayout';
 import theme from '../config';
-import { BlogPostNode } from '../types/homepageTypes';
 
 const Category = styled.span`
   color: white;
@@ -48,13 +45,13 @@ export const BackButton = styled(Link)`
 
 
 const PillPost = (props: any) => {
-  const title = props.pathContext.pill;
-  const color: string = isColorCode(props.pathContext.pill);
-  const blog: Array<BlogPostNode> = props.data.prismic.allBlogposts.edges;
+  // const title = props.pathContext.pill;
+  // const color: string = isColorCode(props.pathContext.pill);
+  // const blog: Array<BlogPostNode> = props.data.prismic.allBlogposts.edges;
   return (
-    <GlobalLayout path={title}>
+    <GlobalLayout path={null}>
       <PillContainer>
-        <BackButton to='/blog'>
+        {/* <BackButton to='/blog'>
           <Back />
         </BackButton>
         <div className="pill-container">
@@ -76,7 +73,7 @@ const PillPost = (props: any) => {
               )
             })
           }
-        </div>
+        </div> */}
       </PillContainer>
     </GlobalLayout>
   )
@@ -86,20 +83,20 @@ const PillPost = (props: any) => {
 
 export default PillPost;
 
-export const pillFilter = graphql`
-query PILL_FILTER($pill:String!) {
-  prismic {
-    allBlogposts(where: {pill: $pill}) {
-      edges {
-        node {
-          date
-          image
-          pill
-          text
-          title
-        }
-      }
-    }
-  }
-}
-`;
+// export const pillFilter = graphql`
+// query PILL_FILTER($pill:String!) {
+//   prismic {
+//     allBlogposts(where: {pill: $pill}) {
+//       edges {
+//         node {
+//           date
+//           image
+//           pill
+//           text
+//           title
+//         }
+//       }
+//     }
+//   }
+// }
+// `;
