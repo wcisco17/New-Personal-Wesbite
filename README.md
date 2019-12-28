@@ -55,5 +55,4 @@
 
 # License
   - You may not use this website for production! This is only for educational purposes only. (Thank You) :blush:
-  - This is the gatsby template I used to build the website: https://minimal-blog.lekoarts.de/ 
   - Inspiration credit to LekoArts!
