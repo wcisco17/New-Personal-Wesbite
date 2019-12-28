@@ -79,7 +79,7 @@ const Routes = [
 ]
 
 const Navigation: React.FC<{ path: any }> = ({ path }) => {
-  const [pathName, setPath] = React.useState<string>('');
+  const [_, setPath] = React.useState<string>('');
 
   let p = path.pathname;
 
