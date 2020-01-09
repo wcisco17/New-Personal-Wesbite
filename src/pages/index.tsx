@@ -8,7 +8,7 @@ import { ContactButton } from '../components/Navigation';
 import theme from '../config';
 import DesignProjects from '../modules/Home/DesignProjects';
 import FeaturedProjetcs from '../modules/Home/FeaturedProjects';
-import Skills from '../modules/Home/skills';
+import Skills from '../modules/Home/Skills';
 import { HomePageProps } from '../types';
 
 const me = require("../images/me.png");
