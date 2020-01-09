@@ -74,6 +74,7 @@ const FeaturedProjetcs: React.FC<IProps> = ({ thirdtitle, featuredprojects, isDi
                                 </Fragment>
                             )
                         } else {
+                            console.log(link)
                             return (
                                 <Fragment key={id} >
                                     <FeaturedProject

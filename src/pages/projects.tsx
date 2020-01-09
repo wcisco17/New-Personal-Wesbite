@@ -27,24 +27,24 @@ const ProjectsContainer = styled.section`
 `;
 
 const Projects: React.FC<HomePageProps> = ({ data, location }) => {
-    const { prismic: { allHomepagess: { edges } } } = data;
-    const doc = edges.slice(0, 1).pop();
-    if (!doc) return null;
-    return (
-        <GlobalLayout path={location}>
-            <ProjectsContainer>
-                <h1 className='blog-title'>Projects</h1>
-                <div className="container-projects">
+  const { prismic: { allHomepagess: { edges } } } = data;
+  const doc = edges.slice(0, 1).pop();
+  if (!doc) return null;
+  return (
+    <GlobalLayout path={location}>
+      <ProjectsContainer>
+        <h1 className='blog-title'>Projects</h1>
+        <div className="container-projects">
 
-                    <FeaturedProjetcs
-                        featuredprojects={edges[0].node.sideprojects}
-                        isDisplay={false}
-                    />
+          <FeaturedProjetcs
+            featuredprojects={edges[0].node.sideprojects}
+            isDisplay={false}
+          />
 
-                </div>
-            </ProjectsContainer>
-        </GlobalLayout>
-    )
+        </div>
+      </ProjectsContainer>
+    </GlobalLayout>
+  )
 };
 
 export default Projects;
@@ -58,9 +58,9 @@ export const projectQuery = graphql`
           sideprojects {
             image
             link {
-              ... on PRISMIC__FileLink {
-                _linkType
+              ... on PRISMIC__ExternalLink {
                 url
+                _linkType
               }
             }
             subtitle
