@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import ItemBlog from '../components/BlogItem';
 import GlobalLayout, { Footer } from '../components/common/GlobalLayout';
 import theme from '../config';
-import { BlogPostNode } from '../types/homepageTypes';
+import { BlogPostData } from '../types/blogPost';
 
 const BlogContainer = styled.section`
     position: absolute;
@@ -27,33 +27,26 @@ const BlogContainer = styled.section`
     }
 `;
 
-interface IBlogProps {
-    location: {
-        pathName: string
-    }
-    data: any;
-}
-
-const BlogPage: React.FC<IBlogProps> = ({ data, location }) => {
-    const blog: Array<BlogPostNode> = data.prismic.allBlogposts.edges;
-    console.log('Blog', blog);
-
+const BlogPage: React.FC<BlogPostData> = (props) => {
+    const { nodes: blog } = props.data.allPrismicBlogpost
     return (
-        <GlobalLayout path={location} >
+        <GlobalLayout path={(props as any).location} >
+            <h3>Blog Post</h3>
             <BlogContainer>
                 <h1 className='blog-title' >Blog</h1>
                 <p className="blog-small-text">Tech stuff & a mix of tutorials and news</p>
                 {
-                    blog.map(({ node: { title, date, pill, image, text } }, id) => {
+                    blog.map(({ data: { title, date, pill, image, text } }, id) => {
+                        console.log()
                         return (
                             <ItemBlog
                                 key={id}
-                                title={title[0].text}
-                                date={date[0].text}
+                                title={title.text}
+                                date={date.text}
                                 pill={pill}
                                 src={image.url}
                                 alt={image.alt}
-                                excerpt={!text ? null : text[0].text}
+                                excerpt={!text ? null : text.text}
                             />
                         )
                     })
@@ -70,19 +63,28 @@ const BlogPage: React.FC<IBlogProps> = ({ data, location }) => {
 export default BlogPage;
 
 export const queryBlog = graphql`
-{
-  prismic {
-    allBlogposts {
-      edges {
-        node {
-          date
-          image
-          pill
+query BlogPostQuery {
+  allPrismicBlogpost {
+    nodes {
+      data {
+        text {
           text
-          title
         }
+        title {
+          text
+        }
+        image {
+          alt
+          url
+        }
+        date {
+          text
+        }
+        pill
+        keytext
       }
     }
   }
 }
+
 `;

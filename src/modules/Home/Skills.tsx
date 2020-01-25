@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import styled from 'styled-components';
 
 import theme from '../../config';
+import { Secondtitle, Skill } from '../../types';
 
 const SkillsContainer = styled.div`
     display: flex;
@@ -28,15 +29,15 @@ const SkillsContainer = styled.div`
 `;
 
 interface ISkillsProps {
-    secondtitle: string | any;
-    skillsData: any[];
+    secondtitle: Secondtitle
+    skillsData: Skill[];
 };
 
 const Skills: React.FC<ISkillsProps> = ({ secondtitle, skillsData }) => {
     return (
         <Fragment>
             <div className="top-header">
-                <h1 className='skills-title' >{secondtitle}</h1>
+                <h1 className='skills-title' >{secondtitle.text}</h1>
             </div>
             <SkillsContainer>
                 {
@@ -45,7 +46,7 @@ const Skills: React.FC<ISkillsProps> = ({ secondtitle, skillsData }) => {
                         return (
                             <div key={key} className="skill-content">
                                 <img src={url} alt="..." />
-                                <h4>{text1[0].text}</h4>
+                                <h4>{text1.text}</h4>
                             </div>
                         )
                     })

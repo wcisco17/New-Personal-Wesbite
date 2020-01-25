@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import styled from 'styled-components';
 
@@ -6,19 +6,17 @@ import GlobalLayout from '../components/common/GlobalLayout';
 import FeaturedProject from '../components/Projects';
 import theme from '../config';
 import { SideProjectContainer } from '../modules/Home/FeaturedProjects';
-import { DesignProjectsRoot } from '../types/design';
+import { HomePagesData } from '../types';
 
 const ProjectsContainer = styled.section`
     position: absolute;
     top: 120px;
     left: 0;
     right: 0;
-
     .blog-title {
         text-align: center;
         font-size: 3rem;
     }
-
     .container-projects {
         margin: 20px 80px;
         @media (max-width: ${theme.other.breakpoints.s}) {
@@ -27,9 +25,9 @@ const ProjectsContainer = styled.section`
     }
 `;
 
-const Projects: React.FunctionComponent<DesignProjectsRoot> = (props) => {
-  const { node } = props.data.prismic.allHomepagess.edges[0];
-
+const Projects: React.FC = (props) => {
+  const data = useStaticQuery(designProjectQuery);
+  const { designprojects } = (data as HomePagesData).allPrismicHomepages.nodes[0].data;
   return (
     <GlobalLayout path={(props as any).location}>
       <ProjectsContainer>
@@ -37,7 +35,7 @@ const Projects: React.FunctionComponent<DesignProjectsRoot> = (props) => {
         <div className="container-projects">
           <SideProjectContainer>
             {
-              node.designprojects.map(({
+              designprojects.map(({
                 title,
                 image,
                 link,
@@ -48,10 +46,10 @@ const Projects: React.FunctionComponent<DesignProjectsRoot> = (props) => {
                     url={link.url}
                     big={true}
                     key={id}
-                    title={title[0].text}
+                    title={title.text}
                     image={image.url}
                     link={null}
-                    subTitle={subtitle[0].text}
+                    subTitle={subtitle.text}
                   />
                 )
               })
@@ -66,25 +64,27 @@ const Projects: React.FunctionComponent<DesignProjectsRoot> = (props) => {
 export default Projects;
 
 export const designProjectQuery = graphql`
-{
-  prismic {
-    allHomepagess {
-      edges {
-        node {
-          designprojects {
-            image
-            link {
-              ... on PRISMIC__ExternalLink {
-                _linkType
+    {
+      allPrismicHomepages {
+        nodes {
+          data {
+            designprojects {
+              image {
+                alt
+                url
+              }
+              title {
+                text
+              }
+              subtitle {
+                text
+              }
+              link {
                 url
               }
             }
-            title
-            subtitle
           }
         }
       }
     }
-  }
-}
 `;

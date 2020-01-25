@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import FeaturedProject from '../../components/Projects';
 import theme from '../../config';
-import { PurpleFields } from '../../types/homepageTypes';
+import { Sideproject } from '../../types';
 
 export const SideProjectContainer = styled.div`
   display: flex;
@@ -35,7 +35,7 @@ export const SeeAll = styled(Link)`
 
 interface IProps {
     thirdtitle?: string;
-    featuredprojects: PurpleFields[];
+    featuredprojects: Sideproject[];
     isDisplay: boolean;
 };
 
@@ -68,8 +68,8 @@ const FeaturedProjetcs: React.FC<IProps> = ({ thirdtitle, featuredprojects, isDi
                                         big
                                         image={url}
                                         link={link.url}
-                                        subTitle={subtitle[0].text}
-                                        title={title[0].text}
+                                        subTitle={subtitle.text}
+                                        title={title.text}
                                     />
                                 </Fragment>
                             )
@@ -83,8 +83,8 @@ const FeaturedProjetcs: React.FC<IProps> = ({ thirdtitle, featuredprojects, isDi
                                         big
                                         image={url}
                                         link={link.url}
-                                        subTitle={subtitle[0].text}
-                                        title={title[0].text}
+                                        subTitle={subtitle.text}
+                                        title={title.text}
                                     />
                                 </Fragment>
                             )
