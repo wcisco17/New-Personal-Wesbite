@@ -10,7 +10,7 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: "gatsby-source-prismic-graphql",
+      resolve: "gatsby-source-prismic",
       options: {
         repositoryName: process.env.PRISMIC_REPO_NAME, // (REQUIRED, replace with your own)
         accessToken: process.env.PRISMIC_VARIABLE,

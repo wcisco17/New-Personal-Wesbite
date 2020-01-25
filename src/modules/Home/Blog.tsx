@@ -1,10 +1,5 @@
-import { graphql, StaticQuery } from 'gatsby';
 import * as React from 'react';
 import { Fragment } from 'react';
-
-import BlogPost from '../../components/BlogPost';
-import { BlogPostNode } from '../../types/homepageTypes';
-import { SeeAll, SideProjectContainer } from './FeaturedProjects';
 
 
 interface IProps {
@@ -14,7 +9,8 @@ interface IProps {
 const BlogShowcase: React.FC<IProps> = (props) => {
     return (
         <Fragment>
-            <StaticQuery
+            <h2>Blog</h2>
+            {/* <StaticQuery
                 query={blogPageQuery}
                 render={data => {
                     const blog: Array<BlogPostNode> = data.prismic.allBlogposts.edges;
@@ -44,26 +40,26 @@ const BlogShowcase: React.FC<IProps> = (props) => {
                         </Fragment>
                     )
                 }}
-            />
+            /> */}
         </Fragment>
     )
 };
 
 export default BlogShowcase;
 
-export const blogPageQuery = graphql`
-{
-  prismic {
-    allBlogposts {
-      edges {
-        node {
-          date
-          image
-          pill
-          title
-        }
-      }
-    }
-  }
-}
-`;
+// export const blogPageQuery = graphql`
+// {
+//   prismic {
+//     allBlogposts {
+//       edges {
+//         node {
+//           date
+//           image
+//           pill
+//           title
+//         }
+//       }
+//     }
+//   }
+// }
+// `;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Fragment } from 'react';
 
 import FeaturedProject from '../../components/Projects';
-import { Designproject } from '../../types/design';
+import { Designproject } from '../../types';
 import { SeeAll, SideProjectContainer } from './FeaturedProjects';
 
 interface IProps {
@@ -35,10 +35,10 @@ const DesignProjects: React.FC<IProps> = ({ fourthtitle, designprojects, isEmpty
                                 url={link.url}
                                 big={false}
                                 key={id}
-                                title={title[0].text}
+                                title={title.text}
                                 image={image.url}
                                 link={'link'}
-                                subTitle={subtitle[0].text}
+                                subTitle={subtitle.text}
                             />
                         )
                     })

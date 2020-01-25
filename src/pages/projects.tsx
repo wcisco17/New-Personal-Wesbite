@@ -1,11 +1,11 @@
-import { graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import styled from 'styled-components';
 
 import GlobalLayout from '../components/common/GlobalLayout';
 import theme from '../config';
 import FeaturedProjetcs from '../modules/Home/FeaturedProjects';
-import { HomePageProps } from '../types';
+import { HomePagesData } from '../types';
 
 const ProjectsContainer = styled.section`
     position: absolute;
@@ -26,10 +26,9 @@ const ProjectsContainer = styled.section`
     }
 `;
 
-const Projects: React.FC<HomePageProps> = ({ data, location }) => {
-  const { prismic: { allHomepagess: { edges } } } = data;
-  const doc = edges.slice(0, 1).pop();
-  if (!doc) return null;
+const Projects: React.FC = () => {
+  const projectsData = useStaticQuery(projectQuery);
+  const { sideprojects } = (projectsData as HomePagesData).allPrismicHomepages.nodes[0].data;
   return (
     <GlobalLayout path={location}>
       <ProjectsContainer>
@@ -37,7 +36,7 @@ const Projects: React.FC<HomePageProps> = ({ data, location }) => {
         <div className="container-projects">
 
           <FeaturedProjetcs
-            featuredprojects={edges[0].node.sideprojects}
+            featuredprojects={sideprojects}
             isDisplay={false}
           />
 
@@ -50,25 +49,26 @@ const Projects: React.FC<HomePageProps> = ({ data, location }) => {
 export default Projects;
 
 export const projectQuery = graphql`
-{
-  prismic {
-    allHomepagess {
-      edges {
-        node {
-          sideprojects {
-            image
-            link {
-              ... on PRISMIC__ExternalLink {
+    {
+      allPrismicHomepages {
+        nodes {
+          data {
+            sideprojects {
+              title {
+                text
+              }
+              subtitle {
+                text
+              }
+              link {
                 url
-                _linkType
+              }
+              image {
+                url
               }
             }
-            subtitle
-            title
           }
         }
       }
     }
-  }
-}
 `;
