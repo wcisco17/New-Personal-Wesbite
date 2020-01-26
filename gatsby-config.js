@@ -17,6 +17,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
+    `gatsby-source-quote-williams-sissoko`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
