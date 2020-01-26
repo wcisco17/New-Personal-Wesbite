@@ -47,14 +47,13 @@ const Nav = styled.nav`
 `;
 
 interface RouteProp {
-  isRoute: boolean;
+  isroute: boolean;
 }
 
 const NavItems = styled(Link)`
-      color: ${(props: RouteProp) => props.isRoute ?
-    theme.colors.primary.lightRed : theme.colors.primary.darkGray};
+      color: ${theme.colors.primary.lightRed};
       text-decoration: none;
-      font-weight: ${(props: RouteProp) => props.isRoute ? 900 : ''};
+      font-weight: 900;
       margin-left: 2rem;
       font-weight: 900;
     transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -76,19 +75,14 @@ const Routes = [
     title: 'Design',
     path: '/design'
   },
+  {
+    id: 3,
+    title: 'Blog',
+    path: '/blog'
+  },
 ]
 
-const Navigation: React.FC<{ path: any }> = ({ path }) => {
-  const [_, setPath] = React.useState<string>('');
-
-  let p = path.pathname;
-
-  const changePath = () => Routes.map(({ title, path }) => p === path ? setPath(title) : setPath(title))
-
-  useEffect(() => {
-    changePath();
-  }, []);
-
+const Navigation: React.FC = () => {
   return (
     <div>
       <Headroom calcHeightOnResize disableInlineStyles>
@@ -102,7 +96,7 @@ const Navigation: React.FC<{ path: any }> = ({ path }) => {
           {
             Routes.map(({ id, title, path }) => {
               return (
-                <NavItems isRoute={p === path ? true : false} key={id} to={path}>
+                <NavItems key={id} to={path}>
                   {title}
                 </NavItems>
               )

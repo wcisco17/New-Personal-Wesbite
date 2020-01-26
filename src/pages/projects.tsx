@@ -30,7 +30,7 @@ const Projects: React.FC = () => {
   const projectsData = useStaticQuery(projectQuery);
   const { sideprojects } = (projectsData as HomePagesData).allPrismicHomepages.nodes[0].data;
   return (
-    <GlobalLayout path={location}>
+    <GlobalLayout>
       <ProjectsContainer>
         <h1 className='blog-title'>Projects</h1>
         <div className="container-projects">
