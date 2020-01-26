@@ -5,7 +5,7 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: `Wcisco Portfolio`,
-    description: ``,
+    description: `Sissoko`,
     author: `Williams Sissoko`,
   },
   plugins: [
@@ -24,8 +24,19 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-amplitude-analytics`,
+      options: {
+        apiKey: process.env.AMPLITUDE_API_KEY,
+        // Prevents loading Amplitude and logging events if visitors have "Do Not Track" enabled (optional)
+        respectDNT: true,
+        // Avoids sending pageview hits from custom paths (optional)
+        exclude: ["/preview/**", "/do-not-track/me/too/"],
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

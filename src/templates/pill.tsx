@@ -1,9 +1,12 @@
-import { Link } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 
+import ItemBlog, { isColorCode } from '../components/BlogItem';
+import Back from '../components/common/Back';
 import GlobalLayout from '../components/common/GlobalLayout';
 import theme from '../config';
+import { BlogPostData } from '../types/pill';
 
 const Category = styled.span`
   color: white;
@@ -44,14 +47,15 @@ export const BackButton = styled(Link)`
 `;
 
 
-const PillPost = (props: any) => {
-  // const title = props.pathContext.pill;
-  // const color: string = isColorCode(props.pathContext.pill);
-  // const blog: Array<BlogPostNode> = props.data.prismic.allBlogposts.edges;
+const PillPost: React.FC<BlogPostData> = (props) => {
+  const title = (props as any).pathContext.pill;
+  const color: string = isColorCode((props as any).pathContext.pill);
+  const { nodes: blog } = props.data.allPrismicBlogpost;
+
   return (
-    <GlobalLayout path={null}>
+    <GlobalLayout path={(props as any).location}>
       <PillContainer>
-        {/* <BackButton to='/blog'>
+        <BackButton to='/blog'>
           <Back />
         </BackButton>
         <div className="pill-container">
@@ -59,21 +63,21 @@ const PillPost = (props: any) => {
         </div>
         <div className="blog-pill">
           {
-            blog.map(({ node: { title, date, pill, image, text } }, id) => {
+            blog.map(({ data: { title, date, pill, image, text } }, id) => {
               return (
                 <ItemBlog
                   key={id}
-                  title={title[0].text}
-                  date={date[0].text}
+                  title={title.text}
+                  date={date.text}
                   pill={pill}
                   src={image.url}
                   alt={image.alt}
-                  excerpt={!text ? null : text[0].text}
+                  excerpt={!text ? null : text.text}
                 />
               )
             })
           }
-        </div> */}
+        </div>
       </PillContainer>
     </GlobalLayout>
   )
@@ -83,20 +87,29 @@ const PillPost = (props: any) => {
 
 export default PillPost;
 
-// export const pillFilter = graphql`
-// query PILL_FILTER($pill:String!) {
-//   prismic {
-//     allBlogposts(where: {pill: $pill}) {
-//       edges {
-//         node {
-//           date
-//           image
-//           pill
-//           text
-//           title
-//         }
-//       }
-//     }
-//   }
-// }
-// `;
+export const pillFilter = graphql`
+ query PILL_FILTER($pill:String!) {
+  allPrismicBlogpost(filter: {data: {pill: {eq: $pill}}}) {
+    nodes {
+      data {
+        date {
+          text
+        }
+        image {
+          alt
+          url
+        }
+        keytext
+        pill
+        text {
+          text
+        }
+        title {
+          text
+        }
+      }
+    }
+  }
+}
+
+`;

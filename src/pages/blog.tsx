@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import ItemBlog from '../components/BlogItem';
 import GlobalLayout, { Footer } from '../components/common/GlobalLayout';
 import theme from '../config';
-import { BlogPostData } from '../types/blogPost';
+import { BlogPostData } from '../types/pill';
 
 const BlogContainer = styled.section`
     position: absolute;
@@ -28,36 +28,34 @@ const BlogContainer = styled.section`
 `;
 
 const BlogPage: React.FC<BlogPostData> = (props) => {
-    const { nodes: blog } = props.data.allPrismicBlogpost
-    return (
-        <GlobalLayout path={(props as any).location} >
-            <h3>Blog Post</h3>
-            <BlogContainer>
-                <h1 className='blog-title' >Blog</h1>
-                <p className="blog-small-text">Tech stuff & a mix of tutorials and news</p>
-                {
-                    blog.map(({ data: { title, date, pill, image, text } }, id) => {
-                        console.log()
-                        return (
-                            <ItemBlog
-                                key={id}
-                                title={title.text}
-                                date={date.text}
-                                pill={pill}
-                                src={image.url}
-                                alt={image.alt}
-                                excerpt={!text ? null : text.text}
-                            />
-                        )
-                    })
-                }
-                <Footer>
-                    &copy; 2019 by Williams Sissoko. All rights reserved. <br />
-                    <a href="https://github.com/wcisco17/">GitHub Repository</a> <br />
-                </Footer>
-            </BlogContainer>
-        </GlobalLayout>
-    )
+  const { nodes: blog } = props.data.allPrismicBlogpost
+  return (
+    <GlobalLayout>
+      <BlogContainer>
+        <h1 className='blog-title' >Blog</h1>
+        <p className="blog-small-text">Tech stuff & a mix of tutorials and news</p>
+        {
+          blog.map(({ data: { title, date, pill, image, text } }, id) => {
+            return (
+              <ItemBlog
+                key={id}
+                title={title.text}
+                date={date.text}
+                pill={pill}
+                src={image.url}
+                alt={image.alt}
+                excerpt={!text ? null : text.text}
+              />
+            )
+          })
+        }
+        <Footer>
+          &copy; 2019 by Williams Sissoko. All rights reserved. <br />
+          <a href="https://github.com/wcisco17/">GitHub Repository</a> <br />
+        </Footer>
+      </BlogContainer>
+    </GlobalLayout>
+  )
 };
 
 export default BlogPage;

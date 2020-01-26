@@ -6,6 +6,7 @@ import Elipse from '../components/common/Elipse';
 import GlobalLayout, { Footer } from '../components/common/GlobalLayout';
 import { ContactButton } from '../components/Navigation';
 import theme from '../config';
+import BlogShowcase from '../modules/Home/Blog';
 import DesignProjects from '../modules/Home/DesignProjects';
 import FeaturedProjetcs from '../modules/Home/FeaturedProjects';
 import Skills from '../modules/Home/Skills';
@@ -82,16 +83,13 @@ const HomeContainer = styled.section`
 `;
 
 const RootApp: React.FC<HomePageProps> = ({ data }) => {
-  // const doc = edges.slice(0, 1).pop();
-  // if (!doc) return null;
-
   function onClick(): string {
     return window.location.href = `mailto:wsissoko65@gmail.com`;
   }
   const doc = data.allPrismicHomepages.nodes[0].data
 
   return (
-    <GlobalLayout path={location} >
+    <GlobalLayout>
       <HomeContainer>
         <div className="home-container">
           <div className="home-container__text">
@@ -103,7 +101,7 @@ const RootApp: React.FC<HomePageProps> = ({ data }) => {
               <svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1764 11q33 24 27 64l-256 1536q-5 29-32 45-14 8-31 8-11 0-24-5l-453-185-242 295q-18 23-49 23-13 0-22-4-19-7-30.5-23.5t-11.5-36.5v-349l864-1059-1069 925-395-162q-37-14-40-55-2-40 32-59l1664-960q15-9 32-9 20 0 36 11z" />
               </svg>
-              Hire me
+              Get a quote
                 </ContactButton>
           </div>
 
@@ -133,9 +131,9 @@ const RootApp: React.FC<HomePageProps> = ({ data }) => {
           designprojects={doc.designprojects}
         />
 
-        {/* <BlogShowcase
-                    fithTitle={edges[0].node.fifthtitle[0].text}
-                /> */}
+        <BlogShowcase
+          fithTitle={doc.fifthtitle.text}
+        />
 
         <Footer style={{ marginTop: 50, marginBottom: 50 }} >
           &copy; 2019 by Williams Sissoko. All rights reserved. <br />
@@ -151,6 +149,9 @@ query HomeQuery {
   allPrismicHomepages {
     nodes {
       data {
+        fifthtitle {
+          text
+        }
         designprojects {
           image {
             alt

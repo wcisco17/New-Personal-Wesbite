@@ -25,11 +25,9 @@ const BackgroundErrorPage = styled.div`
 `;
 
 const NotFoundPage: React.SFC = (props: any) => {
-   console.log("Props", props)
    return (
-      <GlobalLayout path={props.location} >
+      <GlobalLayout>
          <BackgroundErrorPage>
-            <h1>Sorry, page not found</h1>
             <img src={notFound} alt="..." />
             <Link to='/' style={{ textDecoration: 'none' }} >
                <ContactButton

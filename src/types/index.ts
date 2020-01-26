@@ -83,6 +83,7 @@ export interface HomePageMainData {
   designprojects: Designproject[]
   firsttitle: Firsttitle
   fourthtitle: Fourthtitle
+  fifthtitle: Fourthtitle
   secondtitle: Secondtitle
   sideprojects: Sideproject[]
   skills: Skill[]

@@ -1,13 +1,12 @@
-import { Link } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import Back from '../components/common/Back';
 import theme from '../config';
+import { BlogPostData } from '../types/pill';
 
 const BlogsContainer = styled.section`
-.content {
-
-}
 `;
 
 const Background = styled.div`
@@ -31,6 +30,7 @@ export const Dark = styled.div`
   position: relative;
   z-index: 1;
   .title-blog {
+    color: black !important;
     position: absolute;
     top: 120px;
     left: 0;
@@ -97,40 +97,40 @@ export const Wrapper = styled.section`
         overflow: hidden;
 `
 
-const BlogPost: React.FC = (props: any) => {
-  // const blog: Array<BlogPostNode> = props.data.prismic.allBlogposts.edges;
+const BlogPost: React.FC<BlogPostData> = (props) => {
+  const { nodes: blog } = props.data.allPrismicBlogpost;
+
   return (
     <BlogsContainer>
-      <Background itemProp={'blog[0].node.image.url'}>
-        <Dark>
-          <h2>Blog</h2>
-          {/* 
-          <div className="content">
-            <div className="back">
+      {
+        blog.map((items, key: number | any) => {
+          return (
+            <Background itemProp={items.data.image.url}>
+              <Dark>
+                <Wrapper>
+                  <div className="content">
+                    <div className="back">
 
-              <BackButton to='/blog'>
-                <Back />
-              </BackButton>
-            </div>
-            <div className="title-blog">
-              <h1 style={{ color: theme.colors.white }}>{blog[0].node.title[0].text}</h1>
-            </div>
-          </div>
-          <Wrapper>
-            {
-              blog[0].node.text.map((items: any, key: number | any) => {
-                return (
+                      <BackButton to='/blog'>
+                        <Back />
+                      </BackButton>
+                    </div>
+                    <div className="title-blog">
+                      <h1 style={{ color: theme.colors.white }}>{items.data.title.text}</h1>
+                    </div>
+                  </div>
                   <Fragment key={key}>
+
                     <div className="container-blog-items">
                       <p>
-                        {items.text}
+                        {items.data.text.text}
                       </p>
                       {
-                        items.url !== null && (
+                        items.data.image.url !== null && (
                           <Fragment>
                             {
-                              typeof items.url !== 'undefined' && (
-                                <img src={items.url} alt={items.alt} style={{ width: 400, height: 300 }} />
+                              typeof items.data.image.url !== 'undefined' && (
+                                <img src={items.data.image.url} alt={items.data.image.alt} style={{ width: 400, height: 300 }} />
                               )
                             }
                           </Fragment>
@@ -138,33 +138,41 @@ const BlogPost: React.FC = (props: any) => {
                       }
                     </div>
                   </Fragment>
-                )
-              })
-
-            }
-          </Wrapper> */}
-        </Dark>
-      </Background>
+                </Wrapper>
+              </Dark>
+            </Background>
+          )
+        })
+      }
     </BlogsContainer>
   )
 }
 
 export default BlogPost;
 
-// export const blogPostFilter = graphql`
-// query BLOG_FILTER($keytext:String!) {
-//   prismic {
-//     allBlogposts(where: {keytext: $keytext}) {
-//       edges {
-//         node {
-//           date
-//           image
-//           pill
-//           text
-//           title
-//         }
-//       }
-//     }
-//   }
-// }
-// `;
+export const blogPostFilter = graphql`
+query BLOG_FILTER($keytext: String!) {
+  allPrismicBlogpost(filter: {data: {keytext: {eq: $keytext}}}) {
+    nodes {
+      data {
+        date {
+          text
+        }
+        image {
+          alt
+          url
+        }
+        keytext
+        pill
+        text {
+          text
+        }
+        title {
+          text
+        }
+      }
+    }
+  }
+}
+
+`;
